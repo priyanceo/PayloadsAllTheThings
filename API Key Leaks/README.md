@@ -62,6 +62,9 @@ curl -H "Authorization: token <github-token>" https://api.github.com/gists
 
 # List organizations the token has access to
 curl -H "Authorization: token <github-token>" https://api.github.com/user/orgs
+
+# Check what scopes the token has (useful for gauging permissions quickly)
+curl -sI -H "Authorization: token <github-token>" https://api.github.com/user | grep -i x-oauth-scopes
 ```
 
 ### Google API Key
@@ -99,14 +102,4 @@ curl https://api.stripe.com/v1/customers \
   -u <stripe-secret-key>:
 ```
 
-### Twilio API Key
-
-```powershell
-# Check account details
-curl -G https://api.twilio.com/2010-04-01/Accounts \
-  -u "<account-sid>:<auth-token>"
-
-# List phone numbers associated with the account
-curl -G https://api.twilio.com/2010-04-01/Accounts/<account-sid>/IncomingPhoneNumbers \
-  -u "<account-sid>:<auth-token>"
-```
+###
