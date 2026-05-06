@@ -93,13 +93,43 @@ curl -s "https://slack.com/api/conversations.history" -d "token=<slack-token>&ch
 ### Stripe Key
 
 ```powershell
-# Check balance (read access)
-curl https://api.stripe.com/v1/balance \
+# Check balance (confirms key is valid and shows account funds)
+curl -s https://api.stripe.com/v1/balance \
   -u <stripe-secret-key>:
 
 # List customers
-curl https://api.stripe.com/v1/customers \
+curl -s https://api.stripe.com/v1/customers \
+  -u <stripe-secret-key>:
+
+# List charges
+curl -s https://api.stripe.com/v1/charges \
   -u <stripe-secret-key>:
 ```
 
-###
+### Twilio API Key
+
+```powershell
+# Check account details
+curl -s https://api.twilio.com/2010-04-01/Accounts/<account-sid>.json \
+  -u <account-sid>:<auth-token>
+
+# List phone numbers
+curl -s https://api.twilio.com/2010-04-01/Accounts/<account-sid>/IncomingPhoneNumbers.json \
+  -u <account-sid>:<auth-token>
+```
+
+## Detection Patterns
+
+| Service | Pattern |
+|---|---|
+| AWS Access Key ID | `AKIA[0-9A-Z]{16}` |
+| GitHub Token | `ghp_[a-zA-Z0-9]{36}` |
+| Slack Token | `xox[baprs]-[0-9a-zA-Z]{10,48}` |
+| Stripe Secret Key | `sk_live_[0-9a-zA-Z]{24}` |
+| Google API Key | `AIza[0-9A-Za-z\-_]{35}` |
+| Twilio Auth Token | `[0-9a-f]{32}` |
+
+## References
+
+- [keyhacks - streaak](https://github.com/streaak/keyhacks)
+- [API Key Security Best Practices - OWASP](https://owasp.org/www-project-api-security/)
