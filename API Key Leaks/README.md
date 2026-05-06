@@ -59,6 +59,9 @@ curl -H "Authorization: token <github-token>" https://api.github.com/user/repos
 
 # Access private gists
 curl -H "Authorization: token <github-token>" https://api.github.com/gists
+
+# List organizations the token has access to
+curl -H "Authorization: token <github-token>" https://api.github.com/user/orgs
 ```
 
 ### Google API Key
@@ -102,23 +105,8 @@ curl https://api.stripe.com/v1/customers \
 # Check account details
 curl -G https://api.twilio.com/2010-04-01/Accounts \
   -u "<account-sid>:<auth-token>"
+
+# List phone numbers associated with the account
+curl -G https://api.twilio.com/2010-04-01/Accounts/<account-sid>/IncomingPhoneNumbers \
+  -u "<account-sid>:<auth-token>"
 ```
-
-## Detection Patterns
-
-| Service | Regex Pattern |
-|---------|---------------|
-| AWS Access Key ID | `AKIA[0-9A-Z]{16}` |
-| AWS Secret Key | `[0-9a-zA-Z/+]{40}` |
-| GitHub Token | `ghp_[0-9a-zA-Z]{36}` |
-| Google API Key | `AIza[0-9A-Za-z\-_]{35}` |
-| Slack Token | `xox[baprs]-([0-9a-zA-Z]{10,48})?` |
-| Stripe Secret Key | `sk_live_[0-9a-zA-Z]{24}` |
-| Twilio API Key | `SK[0-9a-fA-F]{32}` |
-
-## References
-
-- [KeyHacks - Ways to check if an API key is valid](https://github.com/streaak/keyhacks)
-- [API Key Security Best Practices - OWASP](https://owasp.org/www-project-api-security/)
-- [Finding Hidden API Keys & How to Use Them - Detectify Labs](https://labs.detectify.com/2016/04/28/slack-bot-token-leakage-exposing-business-critical-information/)
-- [TruffleHog - Scanning for secrets in git history](https://github.com/trufflesecurity/trufflehog)
